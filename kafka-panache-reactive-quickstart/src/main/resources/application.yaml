@@ -1,0 +1,42 @@
+quarkus:
+  message: 'default message'
+  flyway:
+    migrate-at-start: true
+    baseline-on-migrate: true
+
+'%Teste':
+  quarkus:
+    message: 'teste configuration'
+    datasource:
+      username: postgres
+      password: admin
+      jdbc:
+        url: jdbc:postgresql://0.0.0.0:5432/teste
+  kafka:
+    booststrap:
+      servers: localhost:9092
+  mp:
+    messaging:
+      #TO KAFKA
+      outgoing:
+        produto-topic-out:
+          connector: smallrye-kafka
+          topic: produto-topic
+          value:
+            serializer: org.apache.kafka.common.serialization.StringSerializer
+      #FROM KAFKA
+      incoming:
+        produto-topic-in:
+          connector: smallrye-kafka
+          topic: produto-topic
+          value:
+            deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+'%Int':
+  quarkus:
+    message: 'int configuration'
+    datasource:
+      username: postgres
+      password: admin
+      jdbc:
+        url: jdbc:postgresql://0.0.0.0:5432/integracao
